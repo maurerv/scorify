@@ -13,6 +13,7 @@ from scorify.plots import (
     threshold_survival,
 )
 
+
 class TestScoreBoxplot:
     def test_returns_figure(self, sample_df):
         fig = score_boxplot(sample_df, ["TS_001", "TS_002"])
@@ -37,6 +38,7 @@ class TestScoreBoxplot:
         fig = score_boxplot(sample_df, ["TS_001"])
         assert len(fig.data) == 1
 
+
 class TestParticleCountBar:
     def test_returns_figure(self, sample_df):
         fig = particle_count_bar(sample_df, ["TS_001", "TS_002"])
@@ -56,6 +58,7 @@ class TestParticleCountBar:
         y_labels = list(fig.data[0].y)
         assert "TS_002" not in y_labels
 
+
 class TestOrientationHeatmap:
     def test_returns_figure(self, sample_df):
         fig = orientation_heatmap(sample_df)
@@ -70,6 +73,7 @@ class TestOrientationHeatmap:
         assert len(fig.data[0].x) == len(sample_df)
         assert len(fig.data[0].y) == len(sample_df)
 
+
 class TestPsiHistogram:
     def test_returns_figure(self, sample_df):
         fig = psi_histogram(sample_df)
@@ -78,6 +82,7 @@ class TestPsiHistogram:
     def test_is_histogram(self, sample_df):
         fig = psi_histogram(sample_df)
         assert isinstance(fig.data[0], go.Histogram)
+
 
 class TestSpatialScatter3d:
     def test_returns_figure(self, sample_df):
@@ -97,7 +102,11 @@ class TestSpatialScatter3d:
 
     def test_no_grid_or_ticks(self, sample_df):
         fig = spatial_scatter_3d(sample_df, "TS_001")
-        for axis in (fig.layout.scene.xaxis, fig.layout.scene.yaxis, fig.layout.scene.zaxis):
+        for axis in (
+            fig.layout.scene.xaxis,
+            fig.layout.scene.yaxis,
+            fig.layout.scene.zaxis,
+        ):
             assert axis.showgrid is False
             assert axis.showticklabels is False
 
@@ -109,6 +118,7 @@ class TestSpatialScatter3d:
         df = pd.DataFrame({"score": [0.1], "tomogram": ["T"]})
         fig = spatial_scatter_3d(df, "T")
         assert len(fig.data) == 0
+
 
 class TestThresholdSurvival:
     def test_returns_figure(self, sample_df):
@@ -132,6 +142,7 @@ class TestThresholdSurvival:
     def test_legend_below_plot(self, sample_df):
         fig = threshold_survival(sample_df, ["TS_001"])
         assert fig.layout.legend.y < 0
+
 
 @pytest.fixture()
 def agg_df(sample_df):

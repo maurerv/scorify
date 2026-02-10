@@ -132,6 +132,7 @@ def psi_histogram(df: pd.DataFrame) -> go.Figure:
     )
     return fig
 
+
 def spatial_scatter_3d(df: pd.DataFrame, tomogram: str) -> go.Figure:
     sub = df[df["tomogram"] == tomogram]
     has_pos = all(c in sub.columns for c in ("x", "y", "z"))
@@ -212,8 +213,10 @@ def correlation_scatter(
             marker=marker,
             text=agg.index,
             hovertemplate="%{text}<br>"
-            + f"{x_col}: " + "%{x:.4g}<br>"
-            + f"{y_col}: " + "%{y:.4g}<extra></extra>",
+            + f"{x_col}: "
+            + "%{x:.4g}<br>"
+            + f"{y_col}: "
+            + "%{y:.4g}<extra></extra>",
             showlegend=False,
         )
     )

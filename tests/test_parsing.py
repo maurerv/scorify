@@ -14,6 +14,7 @@ from scorify.parsing import (
     load_star_files,
 )
 
+
 class TestSanitizeName:
     def test_strips_pickle_extension(self):
         assert _sanitize_name("TS_001.pickle") == "TS_001"
@@ -50,6 +51,7 @@ class TestSanitizeName:
         assert _sanitize_name("TS_001_5.0Apx.pickle") == "TS_001"
         assert _sanitize_name("TS_001_13.48Apx.star") == "TS_001"
 
+
 class TestStandardize:
     def test_renames_relion_columns(self, relion_df):
         result = _standardize(relion_df, "test.star")
@@ -85,6 +87,7 @@ class TestStandardize:
         result = _standardize(df, "test.star")
         assert "score" not in result.columns
 
+
 class TestReverseMap:
     def test_maps_internal_to_relion(self):
         assert _REVERSE_MAP["x"] == "rlnCoordinateX"
@@ -94,6 +97,7 @@ class TestReverseMap:
     def test_no_underscore_prefixed_keys(self):
         for v in _REVERSE_MAP.values():
             assert not v.startswith("_")
+
 
 class TestExportStar:
     def test_returns_bytes(self, sample_df):
@@ -114,6 +118,7 @@ class TestExportStar:
             f.flush()
             reloaded = starfile.read(f.name)
         assert len(reloaded) == len(sample_df)
+
 
 class _FakeUpload:
     """Minimal stand-in for Streamlit's UploadedFile."""

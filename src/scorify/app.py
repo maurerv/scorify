@@ -80,9 +80,11 @@ with st.sidebar:
         or []
     )
 
-filtered = df[df["tomogram"].isin(selected_tomos)]
+tomo_filtered = df[df["tomogram"].isin(selected_tomos)]
 if threshold is not None:
-    filtered = filtered[filtered["score"] >= threshold]
+    filtered = tomo_filtered[tomo_filtered["score"] >= threshold]
+else:
+    filtered = tomo_filtered
 
 if filtered.empty:
     st.warning("No particles match current filters.")
@@ -114,7 +116,7 @@ with export_slot:
         )
 
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Particles", f"{len(filtered):,}")
+c1.metric("Particles", f"{len(tomo_filtered):,}")
 c2.metric("Tomograms", f"{filtered['tomogram'].nunique()}")
 if has_score:
     c3.metric("Mean Score", f"{filtered['score'].mean():.4f}")
@@ -220,7 +222,8 @@ with tab_corr:
 
 with tab_thresh:
     if has_score:
-        pre_thresh = df[df["tomogram"].isin(selected_tomos)]
-        st.plotly_chart(threshold_survival(pre_thresh, selected_tomos), width="stretch")
+        st.plotly_chart(
+            threshold_survival(tomo_filtered, selected_tomos), width="stretch"
+        )
     else:
         st.info("No score column found in the data.")
