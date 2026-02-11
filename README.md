@@ -2,7 +2,7 @@
 
 Template matching in cryo-ET produces thousands of candidate particles spread across many tomograms. Evaluating these results, deciding on score thresholds, checking for preferred orientations, comparing tomograms, typically means writing one-off scripts or juggling command-line tools.
 
-Scorify gives you an interactive dashboard for this. Upload `.star` files from any template matching pipeline, set a score cutoff, and immediately see how it affects your data. When you're done, export the filtered particles back`.
+Scorify gives you an interactive dashboard for this. Upload `.star` files from any template matching pipeline, set a score cutoff, and immediately see how it affects your data. When you're done, export the filtered particles.
 
 **[Try it online](https://scorify.streamlit.app)**
 
